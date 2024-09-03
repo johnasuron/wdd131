@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turkana Smart Radio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #333;
+        }
+
+        header {
+            background-image: url('your-header-image.jpg');
+            /* Add your header image here */
+            background-size: cover;
+            padding: 50px;
+            color: white;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .live-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: red;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .radio-container {
+            margin: 30px auto;
+            padding: 20px;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            animation: bounce 1s infinite;
+        }
+
+        .radio-container:hover {
+            animation: none;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .radio-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .player-background {
+            background-image: url('your-player-background.jpg');
+            /* Add your music player background */
+            background-size: cover;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        audio {
+            width: 100%;
+            margin: 20px 0;
+            display: block;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .controls button,
+        .controls input[type="range"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4a90e2;
+            color: white;
+            cursor: pointer;
+        }
+
+        .controls button:hover {
+            background-color: #357abd;
+        }
+
+        .controls input[type="range"] {
+            width: 150px;
+        }
+
+        .datetime,
+        .about-us {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+
+        .playing-effect {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: limegreen;
+            margin: 0 auto;
+            box-shadow: 0 0 15px limegreen;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 15px limegreen;
+            }
+
+            50% {
+                box-shadow: 0 0 30px limegreen;
+            }
+        }
+
+        footer {
+            background-color: #4a90e2;
+            padding: 10px;
+            color: white;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Turkana Smart Radio</h1>
+        <div class="live-indicator">LIVE</div>
+        <p>Live from Lodwar</p>
+    </header>
+
+    <div class="radio-container">
+        <div class="player-background">
+            <h2>Listen Live</h2>
+            <div class="playing-effect"></div> <!-- Visual effect for playing -->
+            <audio id="radioPlayer" controls>
+                <source src="https://stream.zeno.fm/n105zpehd18uv" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+
+            <div class="controls">
+                <button onclick="document.getElementById('radioPlayer').play()">Play</button>
+                <button onclick="document.getElementById('radioPlayer').pause()">Stop</button>
+                <input type="range" min="0" max="1" step="0.1" id="volumeControl" onchange="setVolume(this.value)">
+                <label for="volumeControl">Volume: Low to High</label>
+            </div>
+        </div>
+
+        <div class="datetime">
+            <p id="date"></p>
+            <p id="time"></p>
+        </div>
+
+        <div class="about-us">
+            <h2>About Us</h2>
+            <p>Welcome to Turkana Smart Radio, your number one source for all things music, news, and entertainment in
+                East Africa. We are dedicated to providing you with the very best of content, focusing on cultural
+                richness, diversity, and community connection.</p>
+            <p>Founded by John Asuron and proudly programmed by Turkana Connect, Asuron Smart Radio broadcasts live from
+                Lodwar, bringing vibrant Turkana culture to the world.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Created by John Asuron</p>
+        <p>Programmed by Turkana Connect</p>
+        <p>Address: Turkana, Lodwar | Phone: 0757081670</p>
+    </footer>
+
+    <script>
+        function updateTimeAndDate() {
+            const now = new Date();
+            const date = now.toLocaleDateString('en-GB', { timeZone: 'Africa/Nairobi' });
+            const time = now.toLocaleTimeString('en-GB', { timeZone: 'Africa/Nairobi' });
+            document.getElementById('date').textContent = `Date: ${date}`;
+            document.getElementById('time').textContent = `Time: ${time}`;
+        }
+
+        setInterval(updateTimeAndDate, 1000);
+        updateTimeAndDate();
+
+        function setVolume(value) {
+            document.getElementById('radioPlayer').volume = value;
+        }
+    </script>
+</body>
+
+</html>
